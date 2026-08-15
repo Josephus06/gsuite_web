@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { COMPANY, NAV, BRANCHES } from './site';
+import { Logo } from './Brand';
 
 // Header and footer shared by every page. "Request A Quote" is the one call to action that stays
 // visible throughout -- it is what the site exists to get people to.
@@ -16,8 +17,11 @@ export default function Layout() {
       <header className="site-header">
         <div className="wrap">
           <Link to="/" className="brand" onClick={close}>
-            <span className="brand-name">{COMPANY.name}</span>
-            <span className="brand-tag">{COMPANY.tagline}</span>
+            <Logo size={34} />
+            <span>
+              <span className="brand-name">{COMPANY.name}</span>
+              <span className="brand-tag">{COMPANY.tagline}</span>
+            </span>
           </Link>
 
           <button
@@ -85,7 +89,7 @@ export default function Layout() {
           </div>
 
           <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} {COMPANY.name}. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} {COMPANY.legalName} · Est. {COMPANY.founded}. All rights reserved.</span>
             <Link to="/quote">Request a quote</Link>
           </div>
         </div>

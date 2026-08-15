@@ -2,6 +2,16 @@ import { Link } from 'react-router-dom';
 import {
   COMPANY, VISION, MISSION, VALUES, CATEGORIES, INDUSTRIES, CLIENTS, BRANCHES,
 } from '../site';
+import { Petals } from '../Brand';
+
+// Where the quarter-circle motif sits in the hero. Kept off the text column so it decorates the
+// corners rather than competing with the headline.
+const HERO_PETALS = [
+  { corner: 'br', top: '8%', right: '6%', size: 78 },
+  { corner: 'tl', top: '20%', right: '13%', size: 58 },
+  { corner: 'bl', top: '52%', right: '4%', size: 66, opacity: 0.6 },
+  { corner: 'tr', bottom: '10%', right: '16%', size: 46, opacity: 0.7 },
+];
 
 // The four marketing pages. They are content, not logic, so they share a file rather than each
 // getting one of their own -- the quote builder is where the actual work is.
@@ -21,8 +31,9 @@ export function Home() {
   return (
     <>
       <section className="hero">
+        <Petals spots={HERO_PETALS} />
         <div className="wrap">
-          <div className="eyebrow" style={{ color: '#c4b5fd' }}>{COMPANY.subtitle}</div>
+          <div className="eyebrow" style={{ color: '#ffc98a' }}>{COMPANY.subtitle}</div>
           <h1>{COMPANY.tagline}</h1>
           <p>{COMPANY.promise}</p>
           <div className="hero-actions">

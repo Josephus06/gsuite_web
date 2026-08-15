@@ -4,8 +4,11 @@
 // their contact page, so this is a working site rather than a shell full of lorem ipsum. Kept as
 // data rather than scattered through JSX so a change of opening hours is one edit, not six.
 
+// The registered name and founding year come off the corporate seal in the brand collateral.
 export const COMPANY = {
   name: 'Cebu GraphicStar',
+  legalName: 'Cebu Graphicstar Imaging Corp.',
+  founded: 1996,
   shortName: 'GraphicStar',
   tagline: 'Creations Made Easy',
   subtitle: 'Your creative destination for all things design',
@@ -78,3 +81,6 @@ export const BRANCHES = [
     mobile: '0939-980-4154',
   },
 ];
+
+// The four accent colours of the quarter-circle motif, in the order they cycle.
+export const PETAL_COLORS = ['var(--brand)', 'var(--blue)', 'var(--petal-yellow)', 'var(--petal-green)'];

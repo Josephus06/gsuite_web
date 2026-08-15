@@ -2,28 +2,41 @@
    One stylesheet: the site is a handful of marketing pages plus the quote builder, so a component
    library would be more machinery than the job needs. */
 
+/* Brand tokens taken from graphicstar.ph's own stylesheet, so this site is the same brand rather
+   than an approximation of it: orange #ed7504 carries the identity, with deep blue #0b10a0 and
+   magenta #ba006d as the supporting accents, on near-black #121212 and off-white #fafafa.
+   Typeface is Montserrat, which is what the live site sets on almost everything. */
 :root {
-  --ink: #14121f;
-  --ink-soft: #4a4660;
-  --muted: #7b7790;
-  --line: #e6e3f0;
+  --ink: #121212;
+  --ink-soft: #454545;
+  --muted: #7a7a7a;
+  --line: #e4e4e4;
   --surface: #ffffff;
-  --surface-alt: #f7f6fb;
-  --brand: #6d28d9;
-  --brand-dark: #4c1d95;
-  --brand-soft: #f3eeff;
-  --accent: #f59e0b;
+  --surface-alt: #fafafa;
+
+  /* Orange and blue are co-primaries — the logo mark is an orange swoosh through a blue G, and
+     the brand collateral pairs them everywhere (blue floor, orange fixtures). Magenta is the
+     DIGISTAR sub-brand. Yellow and green appear only in the quarter-circle motif. */
+  --brand: #ed7504;        /* primary — buttons, links, highlights */
+  --brand-dark: #c25f03;   /* hover/pressed */
+  --brand-soft: #fff4e8;   /* tinted panels */
+  --blue: #0b10a0;         /* co-primary — headers, deep surfaces */
+  --blue-dark: #070b6e;
+  --magenta: #ba006d;      /* DIGISTAR accent */
+  --petal-yellow: #f5c518;
+  --petal-green: #4caf50;
+
   --ok: #15803d;
   --err: #b91c1c;
   --radius: 14px;
-  --shadow: 0 10px 30px rgba(20, 18, 31, 0.08);
+  --shadow: 0 10px 30px rgba(18, 18, 18, 0.09);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: Montserrat, 'Segoe UI', system-ui, -apple-system, sans-serif;
   color: var(--ink);
   background: var(--surface);
   line-height: 1.6;
@@ -54,7 +67,8 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .site-header .wrap { display: flex; align-items: center; gap: 18px; height: 68px; }
-.brand { display: flex; flex-direction: column; text-decoration: none; margin-right: auto; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+.brand-name, .brand-tag { display: block; }
 .brand-name { font-weight: 800; letter-spacing: -0.01em; font-size: 1.05rem; }
 .brand-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
 .site-nav { display: flex; gap: 4px; }
@@ -74,7 +88,7 @@ a { color: inherit; }
   background: var(--surface); color: var(--ink);
 }
 .btn:hover { transform: translateY(-1px); }
-.btn-primary { background: var(--brand); color: #fff; box-shadow: 0 8px 20px rgba(109, 40, 217, 0.28); }
+.btn-primary { background: var(--brand); color: #fff; box-shadow: 0 8px 20px rgba(237, 117, 4, 0.32); }
 .btn-primary:hover { background: var(--brand-dark); }
 .btn-ghost { border-color: rgba(255, 255, 255, 0.4); background: transparent; color: #fff; }
 .btn-outline { border-color: var(--line); }
@@ -84,18 +98,28 @@ a { color: inherit; }
 /* ---------- hero ---------- */
 .hero {
   background:
-    radial-gradient(900px 420px at 12% -10%, rgba(139, 92, 246, 0.5), transparent 60%),
-    radial-gradient(760px 420px at 88% 0%, rgba(236, 72, 153, 0.34), transparent 62%),
-    linear-gradient(150deg, #241a4d 0%, #14121f 62%);
+    radial-gradient(900px 420px at 10% -12%, rgba(237, 117, 4, 0.55), transparent 62%),
+    radial-gradient(720px 420px at 90% 4%, rgba(186, 0, 109, 0.32), transparent 64%),
+    linear-gradient(155deg, var(--blue) 0%, var(--blue-dark) 55%, #050839 100%);
   color: #fff; padding: 104px 0 96px;
+  position: relative; overflow: hidden;
 }
 .hero h1 { color: #fff; }
 .hero p { color: rgba(255, 255, 255, 0.82); font-size: 1.12rem; max-width: 60ch; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
 .page-hero {
-  background: linear-gradient(150deg, #241a4d 0%, #14121f 100%);
+  background: linear-gradient(150deg, var(--blue) 0%, var(--blue-dark) 100%);
   color: #fff; padding: 66px 0;
 }
+
+/* The quarter-circle motif from the brand collateral -- petals in the four accent colours,
+   scattered as a corner flourish. Purely decorative, so it is aria-hidden in the markup. */
+.petals { position: absolute; inset: 0; pointer-events: none; opacity: 0.9; }
+.petal { position: absolute; width: 74px; height: 74px; }
+.petal-tl { border-radius: 100% 0 0 0; }
+.petal-tr { border-radius: 0 100% 0 0; }
+.petal-br { border-radius: 0 0 100% 0; }
+.petal-bl { border-radius: 0 0 0 100%; }
 .page-hero h1 { color: #fff; margin-bottom: 6px; }
 .page-hero p { color: rgba(255, 255, 255, 0.78); margin: 0; }
 
@@ -121,7 +145,7 @@ a { color: inherit; }
 }
 .tile {
   border-radius: var(--radius); padding: 34px 22px; text-align: center;
-  background: linear-gradient(150deg, #2c2258, #14121f); color: #fff;
+  background: linear-gradient(150deg, var(--blue), var(--blue-dark)); color: #fff;
   font-weight: 700; letter-spacing: 0.01em;
 }
 
@@ -147,7 +171,7 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--brand); out
   text-align: left; cursor: pointer; background: var(--surface);
   border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px;
 }
-.product-choice:hover { border-color: #c4b5fd; }
+.product-choice:hover { border-color: #f5b169; }
 .product-choice.is-active { border-color: var(--brand); background: var(--brand-soft); }
 .product-choice strong { display: block; margin-bottom: 3px; }
 .product-choice span { font-size: 0.85rem; color: var(--muted); }
@@ -164,7 +188,7 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--brand); out
 .summary-row:last-of-type { border-bottom: none; }
 
 /* ---------- footer ---------- */
-.site-footer { background: #14121f; color: rgba(255, 255, 255, 0.72); padding: 56px 0 28px; margin-top: 20px; }
+.site-footer { background: #101010; color: rgba(255, 255, 255, 0.72); padding: 56px 0 28px; margin-top: 20px; }
 .site-footer h4 { color: #fff; margin: 0 0 12px; font-size: 0.98rem; }
 .site-footer a { color: rgba(255, 255, 255, 0.72); text-decoration: none; }
 .site-footer a:hover { color: #fff; }
