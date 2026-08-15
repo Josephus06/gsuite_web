@@ -28,11 +28,11 @@ export function getProduct(slug) {
 
 // Re-prices a configuration. The server clamps sizes to the catalog's limits and echoes back what
 // it actually applied, so always render from the response rather than from what was typed.
-export function priceProduct(slug, lines) {
+export function priceProduct(slug, lines, qty) {
   return fetch(url(`/products/${encodeURIComponent(slug)}/price`), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ lines }),
+    body: JSON.stringify({ lines, qty }),
   }).then(json);
 }
 
