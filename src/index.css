@@ -60,13 +60,13 @@ a { color: inherit; }
 }
 
 /* ---------- header ---------- */
-.site-header {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+/* A floating white bar rather than a full-width band, so the page background shows around it. */
+.site-header { position: sticky; top: 0; z-index: 50; padding: 10px 0; }
+.site-header .wrap {
+  display: flex; align-items: center; gap: 18px; height: 64px;
+  background: #fff; border-radius: 14px; padding: 0 22px;
+  box-shadow: 0 4px 18px rgba(18, 18, 18, 0.07);
 }
-.site-header .wrap { display: flex; align-items: center; gap: 18px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
 .brand-name, .brand-tag { display: block; }
 .brand-name { font-weight: 800; letter-spacing: -0.01em; font-size: 1.05rem; }
@@ -186,6 +186,41 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--brand); out
 .summary-total { font-size: 2rem; font-weight: 800; color: var(--brand-dark); letter-spacing: -0.02em; }
 .summary-row { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-size: 0.92rem; border-bottom: 1px dashed var(--line); }
 .summary-row:last-of-type { border-bottom: none; }
+
+/* ---------- product grid ----------
+   Image card over a label strip, on a light page, matching the Products page layout. The image
+   sits in a fixed-ratio box so a row stays aligned whatever shape the photos are -- product shots
+   arrive at all sorts of dimensions and a grid that reflows around them looks broken. */
+.page-soft { background: #f0f0f0; }
+.page-title { text-align: center; padding: 54px 0 12px; }
+.page-title h1 { font-weight: 400; font-size: clamp(2.4rem, 6vw, 4rem); letter-spacing: -0.02em; }
+.page-kicker {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px; font-weight: 700;
+  color: var(--ink-soft); margin-bottom: 6px;
+}
+.page-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); }
+
+.product-grid { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); padding-bottom: 64px; }
+.product-card {
+  background: #fff; text-decoration: none; color: inherit; display: flex; flex-direction: column;
+  overflow: hidden; transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(18, 18, 18, 0.12); }
+.product-shot {
+  aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 26px;
+  background: #f7f7f7; overflow: hidden;
+}
+.product-shot img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.product-label {
+  padding: 20px 16px; text-align: center; text-transform: uppercase;
+  letter-spacing: 0.06em; font-size: 0.86rem; font-weight: 600; border-top: 1px solid #ededed;
+}
+
+/* Stands in until real photography is dropped into public/products/. Built from the brand's own
+   quarter-circle motif so an unphotographed category still looks deliberate rather than broken. */
+.product-placeholder { display: grid; grid-template-columns: 1fr 1fr; width: 132px; height: 132px; }
+.product-placeholder span { width: 100%; height: 100%; }
 
 /* ---------- estimate table ----------
    Mirrors the ERP's estimate screen so a customer and the sales rep read the same document.

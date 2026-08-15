@@ -41,13 +41,13 @@ export const VALUES = [
 
 // The seven categories the real site lists on /products.
 export const CATEGORIES = [
-  { name: 'Digital Displays', blurb: 'LED walls and digital signage that hold a room’s attention.' },
-  { name: 'Signages & Modular Displays', blurb: 'Custom signage and reconfigurable systems for any footprint.' },
-  { name: 'Large Format Prints', blurb: 'Tarpaulins, banners and billboards printed at scale.' },
-  { name: 'Small Format Prints', blurb: 'Flyers, brochures, yearbooks and everything desk-sized.' },
-  { name: 'Frames & Awards', blurb: 'Plaques, trophies and framing finished by hand.' },
-  { name: 'Booths & Carts', blurb: 'Portable stands and carts built for events and malls.' },
-  { name: 'Apparel', blurb: 'Uniforms, shirts and wearables, printed or embroidered.' },
+  { name: 'Digital Displays', slug: 'digital-displays', blurb: 'LED walls and digital signage that hold a room’s attention.' },
+  { name: 'Apparel', slug: 'apparel', blurb: 'Uniforms, shirts and wearables, printed or embroidered.' },
+  { name: 'Signages and Modular Displays', slug: 'signages', blurb: 'Custom signage and reconfigurable systems for any footprint.' },
+  { name: 'Small Format Prints', slug: 'small-format', blurb: 'Flyers, brochures, yearbooks and everything desk-sized.' },
+  { name: 'Large Format Prints', slug: 'large-format', blurb: 'Tarpaulins, banners and billboards printed at scale.' },
+  { name: 'Frames and Awards', slug: 'frames-awards', blurb: 'Plaques, trophies and framing finished by hand.' },
+  { name: 'Booths and Carts', slug: 'booths-carts', blurb: 'Portable stands and carts built for events and malls.' },
 ];
 
 export const INDUSTRIES = [

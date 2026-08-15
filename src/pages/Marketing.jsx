@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   COMPANY, VISION, MISSION, VALUES, CATEGORIES, INDUSTRIES, CLIENTS, BRANCHES,
+  PETAL_COLORS,
 } from '../site';
 import { Petals } from '../Brand';
 
@@ -147,32 +149,56 @@ export function About() {
   );
 }
 
+// Falls back to the brand's quarter-circle motif when a category has no photograph yet, so the
+// grid stays whole instead of showing a broken-image icon. Drop a file into
+// public/products/<slug>.png and it takes over with no code change.
+function ProductShot({ slug, name }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className="product-placeholder" aria-hidden="true">
+        {PETAL_COLORS.map((c, i) => (
+          <span
+            key={c}
+            style={{
+              background: c,
+              borderRadius: ['100% 0 0 0', '0 100% 0 0', '0 0 0 100%', '0 0 100% 0'][i],
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <img src={`/products/${slug}.png`} alt={name} loading="lazy" onError={() => setFailed(true)} />
+  );
+}
+
 export function Products() {
   return (
-    <>
-      <PageHero title="Products" sub="Seven categories, one production floor." />
-      <section className="section">
-        <div className="wrap">
-          <div className="grid grid-3">
-            {CATEGORIES.map((c) => (
-              <div className="card card-hover" key={c.name}>
-                <h3>{c.name}</h3>
-                <p style={{ marginBottom: 14 }}>{c.blurb}</p>
-                <Link to="/quote" className="btn btn-outline btn-sm">Get a price</Link>
-              </div>
-            ))}
+    <div className="page-soft">
+      <div className="wrap">
+        <div className="page-title">
+          <div className="page-kicker">
+            <span>Creations Made Easy</span>
+            <span className="dot" />
+            <span>Creations</span>
           </div>
-          <div className="card center" style={{ marginTop: 26, background: 'var(--brand-soft)', border: 'none' }}>
-            <h3>Not sure which one you need?</h3>
-            <p style={{ marginBottom: 14 }}>
-              Start a quote on the closest match — you can change the size and quantity, and a
-              representative will confirm the details with you.
-            </p>
-            <Link to="/quote" className="btn btn-primary">Build your quote</Link>
-          </div>
+          <h1>Products</h1>
         </div>
-      </section>
-    </>
+
+        <div className="product-grid">
+          {CATEGORIES.map((c) => (
+            <Link className="product-card" to="/quote" key={c.slug} title={c.blurb}>
+              <div className="product-shot">
+                <ProductShot slug={c.slug} name={c.name} />
+              </div>
+              <div className="product-label">{c.name}</div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
